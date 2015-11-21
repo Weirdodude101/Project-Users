@@ -267,7 +267,7 @@ def adminAccount():
 		clearConsole()
 		print "Invalid account, heading back to console"
 		print "----------------------------------------"
-		adminConsle()
+		adminConsole()
 	else:
 		personInfo = loadYaml(Localizer.peopleDatabase + "{0}.yaml".format(setAdmin))
 		optionDict = dict(
