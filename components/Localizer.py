@@ -1,2 +1,0 @@
-peopleDatabase = "people/person_"
-
