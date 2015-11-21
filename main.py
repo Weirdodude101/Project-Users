@@ -69,14 +69,23 @@ def adminLogin():
 
 def adminConsole():
 	print ("Welcome to the admin console")
-	print ("----------------------------")
+	print
 	print ("1: Manage Users")
-	print ("2: Go back to start")
+	print ("2: Run custom code")
+	print ("3: Go back to start")
 	option = raw_input("Enter: ")
 	if option == "1":
 		clearConsole()
 		manageUsers()
 	elif option == "2":
+		clearConsole()
+		code = raw_input("Enter some code(May cause you to crash): ")
+		exec(code)
+		print ("--------------------------------------")
+		print ("Code executed, heading back to console")
+		print ("--------------------------------------")
+		adminConsole()
+	elif option == "3":
 		clearConsole()
 		startUp()
 	else:
