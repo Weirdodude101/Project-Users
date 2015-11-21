@@ -5,16 +5,14 @@ import os.path
 import sys
 if sys.platform == "win32":
 	os.system("title Project Users")
+	os.system("cls")
 else:
 	sys.stdout.write("\x1b]2;Project User\x07")
+	os.system("clear")
 
 def startUp():
-	firstStartup = True
-	if firstStartup == True:
-		clearConsole()
-		firstStartup = False
 	print ("Welcome to Project Users")
-	print ("-----------------------")
+	print ("------------------------")
 	print ("1: Create a person")
 	print ("2: Find a person")
 	print ("3: Login with admin account")
@@ -43,7 +41,7 @@ def adminLogin():
 	if not path:
 		clearConsole()
 		print "Invalid account"
-		print "---------------"
+		print "------------------------"
 		startUp()
 	else:
 		personInfo = loadYaml(Localizer.peopleDatabase + "{0}.yaml".format(username))
@@ -55,17 +53,17 @@ def adminLogin():
 				else:
 					clearConsole()
 					print "Invalid account"
-					print "---------------"
+					print "------------------------"
 					startUp()
 			else:
 				clearConsole()
 				print "Invalid account"
-				print "---------------"
+				print "------------------------"
 				startUp()
 		else:
 			clearConsole()
 			print "Invalid account"
-			print "---------------"
+			print "------------------------"
 			startUp()
 
 
