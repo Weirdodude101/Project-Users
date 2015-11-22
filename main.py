@@ -45,27 +45,14 @@ def adminLogin():
 		startUp()
 	else:
 		personInfo = loadYaml(Localizer.peopleDatabase + "{0}.yaml".format(username))
-		if username == personInfo['Username']:
-			if password == personInfo['Password']:
-				if personInfo['Admin'] == True:
-					clearConsole()
-					adminConsole()
-				else:
-					clearConsole()
-					print "Invalid account"
-					print "------------------------"
-					startUp()
-			else:
-				clearConsole()
-				print "Invalid account"
-				print "------------------------"
-				startUp()
+		if username == personInfo['Username'] and password == personInfo['Password'] and personInfo['Admin'] == True:
+			clearConsole()
+			adminConsole()
 		else:
 			clearConsole()
-			print "Invalid account"
-			print "------------------------"
+			print "Invalid account, heading back to start"
+			print "--------------------------------------"
 			startUp()
-
 
 def adminConsole():
 	print ("Welcome to the admin console")
@@ -327,7 +314,8 @@ def adminAccount():
 
 
 def addPersonMenu():
-	print "Enter a few credentials for your person"
+	print ("Enter a few credentials for your person")
+	print ("---------------------------------------")
 	username = raw_input("Enter username: ")
 	path = os.path.isfile(Localizer.peopleDatabase + "{0}.yaml".format(username))
 	if path:
