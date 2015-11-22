@@ -46,7 +46,7 @@ def adminLogin():
 	else:
 		personInfo = loadYaml(Localizer.peopleDatabase + "{0}.yaml".format(username))
 		if username == personInfo['Username']:
-			if password == personInfo['FirstName']:
+			if password == personInfo['Password']:
 				if personInfo['Admin'] == True:
 					clearConsole()
 					adminConsole()
@@ -69,7 +69,7 @@ def adminLogin():
 
 def adminConsole():
 	print ("Welcome to the admin console")
-	print
+	print ("----------------------------")
 	print ("1: Manage Users")
 	print ("2: Run custom code")
 	print ("3: Go back to start")
@@ -136,6 +136,7 @@ def editAccount():
 		print ("Edit user info for: {0}".format(personInfo['Username']))
 		print ("#########################")
 		print ("Username: {0}".format(personInfo['Username']))
+		print ("Password: {0}".format(personInfo['Password']))
 		print ("First name: {0}".format(personInfo['FirstName']))
 		print ("Last name: {0}".format(personInfo['LastName']))
 		print ("Age: {0}".format(personInfo['Age']))
@@ -143,16 +144,18 @@ def editAccount():
 		print ("Hobby: {0}".format(personInfo['Hobby']))
 		print ("#########################")
 		print ("1: Change username")
-		print ("2: Change first name")
-		print ("3: Change last name")
-		print ("4: Change age")
-		print ("5: Change gender")
-		print ("6: Change hobby")
+		print ("2: Change password")
+		print ("3: Change first name")
+		print ("4: Change last name")
+		print ("5: Change age")
+		print ("6: Change gender")
+		print ("7: Change hobby")
 		option = raw_input("Enter here: ")
 		if option == "1":
 			newUser = raw_input("Enter a new username for {0}: ".format(personInfo['Username']))
 			optionDict = dict(
 				Username = newUser,
+				Password = personInfo['Password'],
 				FirstName = personInfo['FirstName'],
 				LastName = personInfo['LastName'],
 				Age = personInfo['Age'],
@@ -167,81 +170,97 @@ def editAccount():
 			print "---------------------------"
 			adminConsole()
 		elif option == "2":
-			newFname = raw_input("Enter a new first name for {0}: ".format(personInfo['Username']))
-			optionDict = dict(
-				Username = personInfo['Username'],
-				FirstName = newFname,
-				LastName = personInfo['LastName'],
-				Age = personInfo['Age'],
-				Gender = personInfo['Gender'],
-				Hobby = personInfo['Hobby'],
-				Admin = personInfo['Admin']
-				)
-			dumpYaml(Localizer.peopleDatabase + "{0}.yaml".format(personInfo['Username']),optionDict)
+			newPass = raw_input("Enter a new password for {0}: ".format(personInfo['Username']))
+			editInfo(
+				personInfo['Username'],
+				newPass,
+				personInfo['FirstName'],
+				personInfo['LastName'],
+				personInfo['Age'],
+				personInfo['Gender'],
+				personInfo['Hobby'],
+				personInfo['Admin']
+			)
 			clearConsole()
 			print "Successfully edited account, heading back to console"
 			print "---------------------------"
 			adminConsole()
 		elif option == "3":
-			newLname = raw_input("Enter a new last name for {0}: ".format(personInfo['Username']))
-			optionDict = dict(
-				Username = personInfo['Username'],
-				FirstName = personInfo['FirstName'],
-				LastName = newLname,
-				Age = personInfo['Age'],
-				Gender = personInfo['Gender'],
-				Hobby = personInfo['Hobby'],
-				Admin = personInfo['Admin']
-				)
-			dumpYaml(Localizer.peopleDatabase + "{0}.yaml".format(personInfo['Username']),optionDict)
+			newFname = raw_input("Enter a new first name for {0}: ".format(personInfo['Username']))
+			editInfo(
+				personInfo['Username'],
+				personInfo['Password'],
+				newFname,
+				personInfo['LastName'],
+				personInfo['Age'],
+				personInfo['Gender'],
+				personInfo['Hobby'],
+				personInfo['Admin']
+			)
 			clearConsole()
 			print "Successfully edited account, heading back to console"
 			print "---------------------------"
 			adminConsole()
 		elif option == "4":
-			newAge = raw_input("Enter a new age for {0}: ".format(personInfo['Username']))
-			optionDict = dict(
-				Username = personInfo['Username'],
-				FirstName = personInfo['FirstName'],
-				LastName = personInfo['LastName'],
-				Age = newAge,
-				Gender = personInfo['Gender'],
-				Hobby = personInfo['Hobby'],
-				Admin = personInfo['Admin']
-				)
-			dumpYaml(Localizer.peopleDatabase + "{0}.yaml".format(personInfo['Username']),optionDict)
+			newLname = raw_input("Enter a new last name for {0}: ".format(personInfo['Username']))
+			editInfo(
+				personInfo['Username'],
+				personInfo['Password'],
+				personInfo['FirstName'],
+				newLname,
+				personInfo['Age'],
+				personInfo['Gender'],
+				personInfo['Hobby'],
+				personInfo['Admin']
+			)
 			clearConsole()
 			print "Successfully edited account, heading back to console"
 			print "---------------------------"
 			adminConsole()
 		elif option == "5":
-			newGender = raw_input("Enter a new gender for {0}: ".format(personInfo['Username']))
-			optionDict = dict(
-				Username = personInfo['Username'],
-				FirstName = personInfo['FirstName'],
-				LastName = personInfo['LastName'],
-				Age = personInfo['Age'],
-				Gender = newGender,
-				Hobby = personInfo['Hobby'],
-				Admin = personInfo['Admin']
-				)
-			dumpYaml(Localizer.peopleDatabase + "{0}.yaml".format(personInfo['Username']),optionDict)
+			newAge = raw_input("Enter a new age for {0}: ".format(personInfo['Username']))
+			editInfo(
+				personInfo['Username'],
+				personInfo['Password'],
+				personInfo['FirstName'],
+				personInfo['LastName'],
+				newAge,
+				personInfo['Gender'],
+				personInfo['Hobby'],
+				personInfo['Admin']
+			)
 			clearConsole()
 			print "Successfully edited account, heading back to console"
 			print "---------------------------"
 			adminConsole()
 		elif option == "6":
+			newGender = raw_input("Enter a new gender for {0}: ".format(personInfo['Username']))
+			editInfo(
+				personInfo['Username'],
+				personInfo['Password'],
+				personInfo['FirstName'],
+				personInfo['LastName'],
+				personInfo['Age'],
+				newGender,
+				personInfo['Hobby'],
+				personInfo['Admin']
+			)
+			clearConsole()
+			print "Successfully edited account, heading back to console"
+			print "---------------------------"
+			adminConsole()
+		elif option == "7":
 			newHobby = raw_input("Enter a new hobby for {0}: ".format(personInfo['Username']))
-			optionDict = dict(
-				Username = personInfo['Username'],
-				FirstName = personInfo['FirstName'],
-				LastName = personInfo['LastName'],
-				Age = personInfo['Age'],
-				Gender = personInfo['Gender'],
-				Hobby = newHobby,
-				Admin = personInfo['Admin']
-				)
-			dumpYaml(Localizer.peopleDatabase + "{0}.yaml".format(personInfo['Username']),optionDict)
+			editInfo(
+				personInfo['Username'],
+				personInfo['Password'],
+				personInfo['FirstName'],
+				personInfo['LastName'],
+				personInfo['Age'],
+				personInfo['Gender'],
+				newHobby,
+				personInfo['Admin']
+			)
 			clearConsole()
 			print "Successfully edited account, heading back to console"
 			print "---------------------------"
@@ -251,6 +270,20 @@ def editAccount():
 			print "Invalid option, heading back to console"
 			print "---------------------------------------"
 			adminConsole()
+
+def editInfo(username,password,firstname,lastname,age,gender,hobby,admin):
+	optionDict = dict(
+		Username = username,
+		Password = password,
+		FirstName = firstname,
+		LastName = lastname,
+		Age = age,
+		Gender = gender,
+		Hobby = hobby,
+		Admin = admin
+	)
+	dumpYaml(Localizer.peopleDatabase + "{0}.yaml".format(username),optionDict)
+
 
 def removeAccount():
 	user = raw_input("Enter the name of the account you would like to remove: ")
@@ -277,16 +310,16 @@ def adminAccount():
 		adminConsole()
 	else:
 		personInfo = loadYaml(Localizer.peopleDatabase + "{0}.yaml".format(setAdmin))
-		optionDict = dict(
-			Username = personInfo['Username'],
-			FirstName = personInfo['FirstName'],
-			LastName = personInfo['LastName'],
-			Age = personInfo['Age'],
-			Gender = personInfo['Gender'],
-			Hobby = personInfo['Hobby'],
-			Admin = True
-			)
-		dumpYaml(Localizer.peopleDatabase + "{0}.yaml".format(personInfo['Username']),optionDict)
+		editInfo(
+			personInfo['Username'],
+			personInfo['Password'],
+			personInfo['FirstName'],
+			personInfo['LastName'],
+			personInfo['Age'],
+			personInfo['Gender'],
+			personInfo['Hobby'],
+			True
+		)
 		clearConsole()
 		print "Successfully admined account, heading back to console"
 		print "----------------------------"
@@ -301,16 +334,18 @@ def addPersonMenu():
 		print "Username already taken, please choose another"
 		print "---------------------------------------------"
 		addPersonMenu()
+	password = raw_input("Enter password: ")
 	fname = raw_input("Enter first name: ")
 	lname = raw_input("Enter last name: ")
 	age = raw_input("Enter age: ")
 	gender = raw_input("Enter gender: ")
 	hobby = raw_input("Enter hobby: ")
-	createYaml(Localizer.peopleDatabase + "{0}.yaml".format(username), username, fname, lname, age, gender, hobby)
+	createYaml(Localizer.peopleDatabase + "{0}.yaml".format(username), username, password, fname, lname, age, gender, hobby)
 	clearConsole()
 	print ("Created a person with these credentials: ")
 	print ("#########################")
 	print ("Username: {0}".format(username))
+	print ("Password: {0}".format(password))
 	print ("First name: {0}".format(fname))
 	print ("Last name: {0}".format(lname))
 	print ("Age: {0}".format(age))
@@ -350,6 +385,7 @@ def findPersonMenu():
 		print ("User info for: {0}".format(personInfo['Username']))
 		print ("#########################")
 		print ("Username: {0}".format(personInfo['Username']))
+		print ("Username: {0}".format(personInfo['Password']))
 		print ("First name: {0}".format(personInfo['FirstName']))
 		print ("Last name: {0}".format(personInfo['LastName']))
 		print ("Age: {0}".format(personInfo['Age']))
@@ -386,9 +422,10 @@ def loadYaml(filepath):
 		personInfo = yaml.load(file_descriptor)
 	return personInfo
 
-def createYaml(filepath,username,fname,lname,age,gender,hobby):
+def createYaml(filepath,username,password,fname,lname,age,gender,hobby):
 	personDict = dict(
 		Username = username,
+		Password = password,
 		FirstName = fname,
 		LastName = lname,
 		Age = age,
